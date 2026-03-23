@@ -27,6 +27,6 @@ filter_list:
       - function: regex
         regex_pattern: "([ABCD])"
       - function: take_first
-
+num_fewshot: 5
 metadata:
   version: 4.0

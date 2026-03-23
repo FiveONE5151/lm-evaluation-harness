@@ -34,5 +34,6 @@ metric_list:
     higher_is_better: true
     ignore_case: true
     ignore_punctuation: true
+num_fewshot: 5
 metadata:
   version: 2.0
