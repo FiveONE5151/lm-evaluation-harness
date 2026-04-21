@@ -1,7 +1,7 @@
 tag:
   - math_word_problems
 task: aime25
-dataset_path: math-ai/aime25
+dataset_path: "/mnt/jiayihuang_fs/yiwu/datasets/aime25"
 # dataset_name: null
 output_type: generate_until
 training_split: test

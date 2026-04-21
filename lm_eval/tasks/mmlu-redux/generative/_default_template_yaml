@@ -1,4 +1,4 @@
-dataset_path: "fxmarty/mmlu-redux-2.0-ok"
+dataset_path: /mnt/jiayihuang_fs/yiwu/datasets/mmlu-redux
 test_split: test
 dataset_kwargs:
   trust_remote_code: true
