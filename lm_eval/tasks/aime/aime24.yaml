@@ -1,7 +1,7 @@
 tag:
   - math_word_problems
 task: aime24
-dataset_path: Maxwell-Jia/AIME_2024
+dataset_path: /mnt/jiayihuang_fs/yiwu/datasets/aime24
 # dataset_name: null
 output_type: generate_until
 training_split: train
