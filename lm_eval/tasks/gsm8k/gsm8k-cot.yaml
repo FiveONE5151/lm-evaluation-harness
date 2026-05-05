@@ -1,5 +1,5 @@
 dataset_name: main
-dataset_path: “
+dataset_path: /mnt/jiayihuang_fs/yiwu/datasets/gsm8k
 doc_to_target: '{{answer.split(''####'')[-1].strip() if answer is defined else target}}'
 doc_to_text: 'Q: {{question}}
 

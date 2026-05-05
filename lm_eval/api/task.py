@@ -86,7 +86,7 @@ class Task(abc.ABC):
         self,
         data_dir: str | None = None,
         cache_dir: str | None = None,
-        download_mode: datasets.DownloadMode | None = datasets.DownloadMode.REUSE_DATASET_IF_EXISTS,
+        download_mode: datasets.DownloadMode | None = None,
         config: Mapping | None = None,  # Union[dict, TaskConfig]
     ) -> None:
         """
@@ -126,7 +126,7 @@ class Task(abc.ABC):
         self,
         data_dir: str | None = None,
         cache_dir: str | None = None,
-        download_mode: datasets.DownloadMode = datasets.DownloadMode.REUSE_DATASET_IF_EXISTS,
+        download_mode: datasets.DownloadMode = None,
     ) -> None:
         """Downloads and returns the task dataset.
         Override this method to download the dataset from a custom API.
@@ -624,7 +624,7 @@ class ConfigurableTask(Task):
         self,
         data_dir=None,
         cache_dir=None,
-        download_mode=datasets.DownloadMode.REUSE_DATASET_IF_EXISTS,
+        download_mode=None,
         config: dict | None = None,
     ) -> None:  # TODO no super() call here
         # Get pre-configured attributes
