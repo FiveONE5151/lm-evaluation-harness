@@ -17,13 +17,22 @@ def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
 
 def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
     retval = 0
-    indices = [pos for pos, char in enumerate(results[0]) if char == "$"]
-    if len(indices) <= 1:
-        answer = results[0]
-    else:
-        answer = results[0][indices[0] + 1 : indices[-1]]
+    model_output = results[0]
 
-    if is_equiv(answer, remove_boxed(last_boxed_only_string(doc["solution"]))):
+    # 尝试从模型输出中提取 \boxed{} 中的内容
+    extracted_answer = remove_boxed(last_boxed_only_string(model_output))
+
+    # 如果没有找到 \boxed{}，则回退到原来的 $ 符号提取逻辑
+    if extracted_answer is None:
+        indices = [pos for pos, char in enumerate(model_output) if char == "$"]
+        if len(indices) <= 1:
+            extracted_answer = model_output
+        else:
+            extracted_answer = model_output[indices[0] + 1 : indices[-1]]
+
+    target_answer = remove_boxed(last_boxed_only_string(doc["solution"]))
+
+    if is_equiv(extracted_answer, target_answer):
         retval = 1
 
     results = {
