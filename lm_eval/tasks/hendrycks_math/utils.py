@@ -60,6 +60,8 @@ def is_equiv(str1, str2, verbose=False):
 
 
 def remove_boxed(s):
+    if s is None:
+        return None
     if "\\boxed " in s:
         left = "\\boxed "
         assert s[: len(left)] == left
