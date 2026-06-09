@@ -1,5 +1,5 @@
 task: ifeval
-dataset_path: "/mnt/jiayihuang_fs/yiwu/datasets/ifeval"
+dataset_path: "/data/yiwu/datasets/ifeval"
 dataset_name: null
 output_type: generate_until
 test_split: train
