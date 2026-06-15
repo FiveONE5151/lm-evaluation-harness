@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -187,6 +188,20 @@ def load_yaml(
     if not isinstance(cfg, dict):
         raise ValueError(f"Expected YAML dict from {path}, got {type(cfg).__name__}")
 
+    def _expand_dataset_path(value: Any) -> Any:
+        if isinstance(value, dict):
+            return {key: _expand_dataset_path(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [_expand_dataset_path(item) for item in value]
+        if isinstance(value, str):
+            dataset_root = os.environ.get("DATASET_ROOT", "/data/user/ywu753/datasets")
+            ret = value.replace("${DATASET_ROOT}", dataset_root)
+            return ret
+        return value
+
+    if "dataset_path" in cfg:
+        cfg["dataset_path"] = _expand_dataset_path(cfg["dataset_path"])
+
     if not recursive or "include" not in cfg:
         return cfg
     else:
@@ -205,4 +220,5 @@ def load_yaml(
         inc_cfg.pop("task_list", None)
         merged.update(inc_cfg)
     merged.update(cfg)  # local keys win
+
     return merged

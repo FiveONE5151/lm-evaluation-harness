@@ -1,3 +1,4 @@
+dataset_path: ${DATASET_ROOT}/mmlu_pro
 group: mmlu_pro
 task:
   - mmlu_pro_biology

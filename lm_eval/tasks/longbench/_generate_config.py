@@ -202,7 +202,7 @@ if __name__ == "__main__":
         data = {
             "tag": ["longbench_e" if ds.endswith("_e") else "longbench"],
             "task": f"longbench_{ds}",
-            "dataset_path": "Xnhyacinth/LongBench",
+            "dataset_path": "${DATASET_ROOT}/longbench",
             "test_split": "test",
             "dataset_name": ds,
             "doc_to_text": raw_doc_to_text,

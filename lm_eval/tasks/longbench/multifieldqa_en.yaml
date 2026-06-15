@@ -3,7 +3,7 @@ tag:
   - longbench_single_tasks
   - longbench_tasks
 task: longbench_multifieldqa_en
-dataset_path: Xnhyacinth/LongBench
+dataset_path: ${DATASET_ROOT}/longbench
 test_split: test
 dataset_name: multifieldqa_en
 doc_to_text: "Read the following text and answer briefly.\n\n{{context}}\n\nNow, answer the following question based on the above text, only give me the answer and do not output any other words.\n\nQuestion: {{question}}\nAnswer:"

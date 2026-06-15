@@ -1,5 +1,5 @@
 task: humaneval
-dataset_path: /mnt/jiayihuang_fs/yiwu/datasets/humaneval
+dataset_path: ${DATASET_ROOT}/humaneval
 unsafe_code: true
 output_type: generate_until
 test_split: test

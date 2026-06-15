@@ -3,7 +3,7 @@ tag:
   - longbench_code_tasks
   - longbench_tasks
 task: longbench_lcc
-dataset_path: Xnhyacinth/LongBench
+dataset_path: ${DATASET_ROOT}/longbench
 test_split: test
 dataset_name: lcc
 doc_to_text: "Please complete the code given below. \n{{context}}Next line of code:"

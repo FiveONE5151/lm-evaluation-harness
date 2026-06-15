@@ -3,7 +3,7 @@ tag:
   - longbench_fewshot_tasks
   - longbench_tasks
 task: longbench_lsht
-dataset_path: Xnhyacinth/LongBench
+dataset_path: ${DATASET_ROOT}/longbench
 test_split: test
 dataset_name: lsht
 doc_to_text: "请判断给定新闻的类别，下面是一些例子。\n\n{{context}}\n{{question}}"

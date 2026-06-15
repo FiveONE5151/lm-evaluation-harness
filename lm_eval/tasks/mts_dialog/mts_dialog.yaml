@@ -1,5 +1,5 @@
 task: mts_dialog
-dataset_path: har1/MTS_Dialogue-Clinical_Note
+dataset_path: ${DATASET_ROOT}/mts_dialog
 description: >
   Instructions: The following text is from a collection of medical dialogs between doctor and patient. Extract all relevant information to compose a note that summarizes the relevant content of the dialog.
 

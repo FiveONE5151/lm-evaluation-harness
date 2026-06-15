@@ -1,4 +1,4 @@
-dataset_path: /mnt/jiayihuang_fs/yiwu/datasets/ceval
+dataset_path: ${DATASET_ROOT}/ceval
 validation_split: val
 fewshot_split: dev
 fewshot_config:

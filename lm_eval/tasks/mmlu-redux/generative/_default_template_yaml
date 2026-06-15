@@ -1,4 +1,4 @@
-dataset_path: /mnt/jiayihuang_fs/yiwu/datasets/mmlu-redux
+dataset_path: ${DATASET_ROOT}/mmlu-redux
 test_split: test
 dataset_kwargs:
   trust_remote_code: true

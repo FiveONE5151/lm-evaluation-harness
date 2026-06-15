@@ -103,6 +103,21 @@ output_type: generate_until
         assert cfg["dataset_path"] == "test_dataset"
         assert cfg["output_type"] == "generate_until"
 
+    def test_load_yaml_expands_single_file_dataset_path(self, tmp_path, monkeypatch):
+        """Expand dataset_path even when the YAML file has no include."""
+        monkeypatch.setenv("DATASET_ROOT", "/custom/datasets")
+        content = """
+task: aime24
+dataset_path: "${DATASET_ROOT}/aime24"
+output_type: generate_until
+"""
+        yaml_path = tmp_path / "aime24.yaml"
+        yaml_path.write_text(content)
+
+        cfg = load_yaml(yaml_path)
+
+        assert cfg["dataset_path"] == "/custom/datasets/aime24"
+
     def test_load_yaml_with_include(self, tmp_path):
         """Load YAML that includes another file"""
         base_content = """
