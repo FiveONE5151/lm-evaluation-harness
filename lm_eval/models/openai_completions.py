@@ -152,6 +152,7 @@ class LocalChatCompletion(LocalCompletionsAPI):
         base_url=None,
         tokenizer_backend=None,
         tokenized_requests=None,
+        enable_thinking=None,
         verify_certificate=True,
         ca_cert_path=None,
         auth_token=None,
@@ -171,6 +172,11 @@ class LocalChatCompletion(LocalCompletionsAPI):
                 "Chat completions does not support batching. Defaulting to batch size 1."
             )
             self._batch_size = 1
+        self.chat_template_kwargs = (
+            {"enable_thinking": enable_thinking}
+            if enable_thinking is not None
+            else None
+        )
 
     def _create_payload(
         self,
@@ -197,7 +203,7 @@ class LocalChatCompletion(LocalCompletionsAPI):
         stop = handle_stop_sequences(gen_kwargs.pop("until", None), eos)
         if not isinstance(stop, (list, tuple)):
             stop = [stop]
-        return {
+        payload = {
             "messages": messages,
             "model": self.model,
             "max_tokens": max_tokens,
@@ -206,6 +212,9 @@ class LocalChatCompletion(LocalCompletionsAPI):
             "seed": seed,
             **gen_kwargs,
         }
+        if self.chat_template_kwargs is not None:
+            payload["chat_template_kwargs"] = self.chat_template_kwargs
+        return payload
 
     @staticmethod
     def parse_generations(outputs: Union[Dict, List[Dict]], **kwargs) -> List[str]:
@@ -216,7 +225,16 @@ class LocalChatCompletion(LocalCompletionsAPI):
             try:
                 tmp = [None] * len(out["choices"])
                 for choices in out["choices"]:
-                    tmp[choices["index"]] = choices["message"]["content"]
+                    message = choices["message"]
+                    content = message.get("content")
+                    if content is None:
+                        reasoning_parts = []
+                        for key in ("reasoning_content", "reasoning"):
+                            value = message.get(key)
+                            if value and value not in reasoning_parts:
+                                reasoning_parts.append(value)
+                        content = "\n".join(reasoning_parts) if reasoning_parts else None
+                    tmp[choices["index"]] = content
             except Exception as e:
                 # account for cases that generation is blocked by content filter,
                 # which is common for Azure OpenAI Service,
